@@ -1,3 +1,3 @@
 <template>
-  <h2>Mapa vue</h2>
+  <h1 className="text-3xl font-bold underline">Mapa vue</h1>
 </template>
