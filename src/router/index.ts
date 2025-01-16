@@ -1,5 +1,5 @@
-import MapaView from '@/views/MapaView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import MapBoxView from '@/views/MapBoxView.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,9 +7,9 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: MapaView,
+      component: MapBoxView,
     },
   ],
-})
+});
 
-export default router
+export default router;
