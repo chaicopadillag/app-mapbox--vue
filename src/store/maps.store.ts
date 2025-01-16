@@ -29,11 +29,10 @@ export const useMapsStore = defineStore('maps', () => {
   };
 
   return {
-    isLoading: computed(() => isLoading.value),
-    places: computed(() => places.value),
-    userLocation: computed(() => userLocation.value),
+    isLoading,
+    places,
+    userLocation,
     isUserLocationReady: computed(() => !!userLocation.value),
-
     getCurrentLocation,
   };
 });
