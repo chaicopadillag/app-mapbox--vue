@@ -20,6 +20,15 @@ export default defineComponent({
         center: [userLocation.value.lng, userLocation.value.lat],
         zoom: 15,
       });
+
+      const markerPopup = new Mapboxgl.Popup()
+        .setLngLat([userLocation.value.lng, userLocation.value.lat])
+        .setHTML(`<h2>Estoy aquí</h2><p>Actualmente en Perú</p>`);
+
+      const markerLocation = new Mapboxgl.Marker()
+        .setLngLat([userLocation.value.lng, userLocation.value.lat])
+        .setPopup(markerPopup)
+        .addTo(map);
     };
 
     onMounted(() => {
