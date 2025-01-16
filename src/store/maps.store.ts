@@ -5,7 +5,12 @@ import type { MapCoordinates } from './types/maps-store.type';
 export const useMapsStore = defineStore('maps', () => {
   const isLoading = ref(true);
   const userLocation = ref<MapCoordinates>();
+  const mapBox = ref<mapboxgl.Map>();
   const places = ref([]);
+
+  const setMapBox = (map: mapboxgl.Map) => {
+    mapBox.value = map;
+  };
 
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -30,9 +35,12 @@ export const useMapsStore = defineStore('maps', () => {
 
   return {
     isLoading,
+    mapBox,
     places,
     userLocation,
     isUserLocationReady: computed(() => !!userLocation.value),
+    isMapReady: computed(() => !!mapBox.value),
     getCurrentLocation,
+    setMapBox,
   };
 });
