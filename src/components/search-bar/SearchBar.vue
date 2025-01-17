@@ -1,13 +1,13 @@
 <template>
-  <div class="fixed left-4 top-2">
-    <div class="flex max-w-sm mx-2 rounded bg-white">
+  <div class="fixed left-4 top-2 shadow-md space-y-2" v-if="isMapReady">
+    <div class="flex max-w-sm rounded bg-white">
       <input
         class="w-full border-none bg-transparent px-4 py-1 text-gray-400 outline-none focus:outline-none"
         type="search"
         name="search"
         placeholder="Search..."
       />
-      <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
+      <button type="submit" class="m-2 rounded bg-green-600 px-4 py-2 text-white">
         <svg
           class="fill-current h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"

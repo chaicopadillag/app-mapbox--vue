@@ -1,4 +1,5 @@
 import SearchResult from '@/components/search-result/SearchResult.vue';
+import { useMaps } from '@/composables/useMaps';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -7,6 +8,10 @@ export default defineComponent({
     SearchResult,
   },
   setup() {
-    return {};
+    const { isMapReady } = useMaps();
+
+    return {
+      isMapReady,
+    };
   },
 });
