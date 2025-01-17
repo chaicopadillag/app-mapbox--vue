@@ -6,6 +6,7 @@
         type="search"
         name="search"
         placeholder="Search..."
+        v-model="inputSearch"
       />
       <button type="submit" class="m-2 rounded bg-green-600 px-4 py-2 text-white">
         <svg
