@@ -1,11 +1,18 @@
+import LocationButton from '@/components/location-button/LocationButton.vue';
+import SearchBar from '@/components/search-bar/SearchBar.vue';
 import { useMaps } from '@/composables/useMaps';
 import Mapboxgl from 'mapbox-gl';
 import { defineComponent, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'MapView',
+  components: {
+    LocationButton,
+    SearchBar,
+  },
   setup() {
-    const { isLoading, places, userLocation, isUserLocationReady } = useMaps();
+    const { isLoading, places, userLocation, isUserLocationReady, isMapReady, setMapBox } =
+      useMaps();
     const mapDivElement = ref<HTMLDivElement>();
 
     const initMap = async () => {
@@ -29,6 +36,8 @@ export default defineComponent({
         .setLngLat([userLocation.value.lng, userLocation.value.lat])
         .setPopup(markerPopup)
         .addTo(map);
+
+      setMapBox(map);
     };
 
     onMounted(() => {
@@ -43,6 +52,8 @@ export default defineComponent({
 
     return {
       isLoading,
+      isMapReady,
+      isUserLocationReady,
       places,
       userLocation,
       mapDivElement,

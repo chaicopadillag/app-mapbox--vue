@@ -12,6 +12,19 @@ export const useMapsStore = defineStore('maps', () => {
     mapBox.value = map;
   };
 
+  const setCenterMap = () => {
+    if (!userLocation.value) return;
+
+    if (mapBox.value) {
+      mapBox.value.flyTo({
+        center: [userLocation.value.lng, userLocation.value.lat],
+        zoom: 14,
+      });
+      // mapBox.value.setCenter([userLocation.value.lng, userLocation.value.lat]);
+      // mapBox.value.setZoom(14);
+    }
+  };
+
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
       alert('Por favor active la ubicación en tu navegador');
@@ -42,5 +55,6 @@ export const useMapsStore = defineStore('maps', () => {
     isMapReady: computed(() => !!mapBox.value),
     getCurrentLocation,
     setMapBox,
+    setCenterMap,
   };
 });

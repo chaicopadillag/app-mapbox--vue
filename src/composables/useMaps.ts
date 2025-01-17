@@ -4,7 +4,7 @@ import { onMounted } from 'vue';
 
 export const useMaps = () => {
   const store = useMapsStore();
-  const { isLoading, places, userLocation, isUserLocationReady } = storeToRefs(store);
+  const { isLoading, places, userLocation, isUserLocationReady, isMapReady } = storeToRefs(store);
 
   onMounted(() => {
     if (!isUserLocationReady.value) {
@@ -17,5 +17,8 @@ export const useMaps = () => {
     places,
     userLocation,
     isUserLocationReady,
+    isMapReady,
+    setMapBox: store.setMapBox,
+    setCenterMap: store.setCenterMap,
   };
 };
