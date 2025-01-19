@@ -8,7 +8,7 @@
         placeholder="Search..."
         v-model="inputSearch"
       />
-      <button type="submit" class="m-2 rounded bg-green-600 px-4 py-2 text-white">
+      <button type="button" @click="handleSearch" class="m-2 rounded bg-green-600 px-4 py-2 text-white">
         <svg
           class="fill-current h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ export default defineComponent({
     SearchResult,
   },
   setup() {
-    const { isMapReady } = useMaps();
+    const { isMapReady, searchPlaces } = useMaps();
 
     const debounceTimeOut = ref();
     const searchTerm = ref('');
@@ -20,13 +20,21 @@ export default defineComponent({
 
         debounceTimeOut.value = setTimeout(() => {
           searchTerm.value = value;
+          searchPlaces(searchTerm.value);
         }, 500);
       },
     });
 
+    const handleSearch = () => {
+      if (searchTerm.value.length > 3) {
+        searchPlaces(searchTerm.value);
+      }
+    };
+
     return {
       isMapReady,
       inputSearch,
+      handleSearch,
     };
   },
 });
