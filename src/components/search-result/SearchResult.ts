@@ -11,16 +11,16 @@ export default defineComponent({
     const activePlace = ref<string>();
 
     watch(places, (newPlaces) => {
-      // addMarkers(newPlaces);
+      addMarkers(newPlaces);
     });
 
     const handleSelectPlace = (place: Feature) => {
       activePlace.value = place.id;
-      // mapBox.value?.flyTo({
-      //   center: place.geometry.coordinates as any,
-      //   zoom: 16,
-      //   essential: true,
-      // });
+      mapBox.value?.flyTo({
+        center: place.geometry.coordinates as any,
+        zoom: 16,
+        essential: true,
+      });
     };
 
     const handleDirection = (place: Feature) => {

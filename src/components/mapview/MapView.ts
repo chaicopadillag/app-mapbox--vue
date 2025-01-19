@@ -1,3 +1,4 @@
+import DistanceDuration from '@/components/distance-durantion/DistanceDuration.vue';
 import LocationButton from '@/components/location-button/LocationButton.vue';
 import SearchBar from '@/components/search-bar/SearchBar.vue';
 import { useMaps } from '@/composables/useMaps';
@@ -9,6 +10,7 @@ export default defineComponent({
   components: {
     LocationButton,
     SearchBar,
+    DistanceDuration,
   },
   setup() {
     const { isLoading, places, userLocation, isUserLocationReady, isMapReady, setMapBox } =

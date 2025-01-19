@@ -12,6 +12,8 @@ export const useMaps = () => {
     isUserLocationReady,
     isMapReady,
     isLoadingPlaces,
+    distance,
+    duration,
   } = storeToRefs(store);
 
   onMounted(() => {
@@ -33,5 +35,7 @@ export const useMaps = () => {
     mapBox,
     addMarkers: store.addMarkers,
     getRouteBetweenPoints: store.getRouteBetweenPoints,
+    distance,
+    duration,
   };
 };

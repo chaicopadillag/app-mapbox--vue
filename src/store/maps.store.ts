@@ -9,6 +9,8 @@ import type { Feature, SearchPlacesResponse } from './types/search-places.type';
 export const useMapsStore = defineStore('maps', () => {
   const isLoading = ref(true);
   const isLoadingPlaces = ref(false);
+  const duration = ref<number>();
+  const distance = ref<number>();
   const userLocation = ref<MapCoordinates>();
   const mapBox = ref<mapboxgl.Map>();
   const places = ref<Feature[]>([]);
@@ -58,7 +60,17 @@ export const useMapsStore = defineStore('maps', () => {
     if (mapBox.value.getLayer('route')) {
       mapBox.value.removeLayer('route');
       mapBox.value.removeSource('route');
+      duration.value = undefined;
+      distance.value = undefined;
     }
+  };
+
+  const calculateDurationDistance = (distanceInMts: number, duractionInSeconds: number) => {
+    let kms = distanceInMts / 1000;
+    kms = Math.round(kms * 100) / 100;
+    distance.value = kms;
+
+    duration.value = Math.floor(duractionInSeconds / 60);
   };
 
   const searchPlaces = async (term: string) => {
@@ -108,6 +120,7 @@ export const useMapsStore = defineStore('maps', () => {
       const { routes } = data;
       const { geometry } = routes[0];
       createPolilyne(geometry.coordinates as [number, number][]);
+      calculateDurationDistance(routes[0].distance, routes[0].duration);
     } catch (error) {
       console.log('Error al obtener la ruta', error);
     }
@@ -201,6 +214,8 @@ export const useMapsStore = defineStore('maps', () => {
     isUserLocationReady: computed(() => !!userLocation.value),
     isMapReady: computed(() => !!mapBox.value),
     places: computed(() => places.value),
+    distance: computed(() => distance.value),
+    duration: computed(() => duration.value),
     getCurrentLocation,
     setMapBox,
     setCenterMap,

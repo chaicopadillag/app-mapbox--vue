@@ -22,7 +22,7 @@
         ]"
       >
         <div @click="handleSelectPlace(place)" class="flex items-center justify-center w-3/4">
-          <p class="text-base w-full">{{ place.properties.name }}</p>
+          <p class="text-sm w-full">{{ place.properties.full_address }}</p>
         </div>
         <div class="flex-1 flex justify-end">
           <button
