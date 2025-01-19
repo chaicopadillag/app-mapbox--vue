@@ -54,6 +54,11 @@ export const useMapsStore = defineStore('maps', () => {
     });
 
     markers.value = newMarkers;
+
+    if (mapBox.value.getLayer('route')) {
+      mapBox.value.removeLayer('route');
+      mapBox.value.removeSource('route');
+    }
   };
 
   const searchPlaces = async (term: string) => {
@@ -101,10 +106,70 @@ export const useMapsStore = defineStore('maps', () => {
         },
       );
       const { routes } = data;
-      console.log({ routes });
+      const { geometry } = routes[0];
+      createPolilyne(geometry.coordinates as [number, number][]);
     } catch (error) {
       console.log('Error al obtener la ruta', error);
     }
+  };
+
+  const createPolilyne = (coordinates: [number, number][]) => {
+    if (!mapBox.value) {
+      console.error('No se ha inicializado el mapa');
+      return;
+    }
+
+    const start = coordinates[0];
+    const end = coordinates[coordinates.length - 1];
+
+    const bounds = new mapboxgl.LngLatBounds([start[0], start[1]], [start[0], start[1]]);
+
+    coordinates.forEach((coord) => {
+      bounds.extend([coord[0], coord[1]]);
+    });
+
+    mapBox.value.fitBounds(bounds, {
+      padding: 100,
+    });
+
+    const sourceData: mapboxgl.SourceSpecification = {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates,
+            },
+          },
+        ],
+      },
+    };
+
+    const layerData: mapboxgl.Layer = {
+      id: 'route',
+      type: 'line',
+      source: 'route',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#3887be',
+        'line-width': 5,
+      },
+    };
+
+    if (mapBox.value.getLayer('route')) {
+      mapBox.value.removeLayer('route');
+      mapBox.value.removeSource('route');
+    }
+
+    mapBox.value.addSource('route', sourceData);
+    mapBox.value.addLayer(layerData);
   };
 
   const getCurrentLocation = () => {
